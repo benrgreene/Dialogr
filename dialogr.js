@@ -4,7 +4,7 @@ if( typeof HTMLDialogElement == 'function' ) {
   document.querySelector('body').innerHTML += `
     <dialog id="js-dialog">
       <div class="dialog-content"></div>
-      <div class="dialog-close">X</div>
+      <div class="dialog-close">&times;</div>
       <div id="js-dialog-previous" class="dialog-previous"><</div>
       <div id="js-dialog-next" class="dialog-next">></div>
     </dialog>`;
