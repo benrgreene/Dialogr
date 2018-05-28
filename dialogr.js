@@ -37,12 +37,17 @@ if( typeof HTMLDialogElement == 'function' ) {
 
   // Add the image to the dialog element
   function displayImage(element) {
-    var currentGalleryIndex = '';
-    console.log(element);
+    let currentGalleryIndex = '';
+    let imageSrc = element.src;
+    // Allow for image type triggers on non-image elements
+    if(element.dataset.dialogrSrc) {
+      imageSrc = element.dataset.dialogrSrc;
+    }
+    // set gallery index IF it exists
     if(element.dataset.dialogrIndex) {
       dialogContent.dataset.currentGalleryIndex = element.dataset.dialogrIndex;
     }
-    dialogContent.innerHTML = '<img src="' + element.src + '" ' + currentGalleryIndex + ' />';
+    dialogContent.innerHTML = '<img src="' + imageSrc + '" ' + currentGalleryIndex + ' />';
     setImageMaxDim();
   }
 
@@ -103,14 +108,15 @@ if( typeof HTMLDialogElement == 'function' ) {
       // TODO: this should be dynamic
       var padding = dialog.style.paddingTop;
       padding = 40;
-      dialogImage.style.maxHeight = (dialog.clientHeight - padding) + 'px';
+      if(dialog.clientHeight > 40) {
+        dialogImage.style.maxHeight = (dialog.clientHeight - padding) + 'px';
+      }
     }
   }
 
   // --------------------------------------------------
   // Gallery Navigation
   // --------------------------------------------------
-
   function viewNextSlide(event, direction) {
     event.preventDefault();
     event.stopPropagation();
@@ -122,7 +128,6 @@ if( typeof HTMLDialogElement == 'function' ) {
     nextIndex = (nextIndex >= maxSlides) ? 0 : nextIndex;
     // Get the next element
     var previous = document.querySelector('*[data-dialogr-index="' + nextIndex + '"]');
-    console.log(nextIndex + " " + maxSlides + " " + previous);
     displayImage(previous);
   }
 
