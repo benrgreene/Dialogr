@@ -5,8 +5,8 @@ if( typeof HTMLDialogElement == 'function' ) {
     <dialog id="js-dialog">
       <div class="dialog-content"></div>
       <div class="dialog-close">&times;</div>
-      <div id="js-dialog-previous" class="dialog-previous"><</div>
-      <div id="js-dialog-next" class="dialog-next">></div>
+      <div id="js-dialog-previous" class="dialog-previous">&larr;</div>
+      <div id="js-dialog-next" class="dialog-next">&rarr;</div>
     </dialog>`;
 
   // Now that the dialog is there, we can make our declarations

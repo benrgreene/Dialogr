@@ -32,6 +32,7 @@ dialog::backdrop {
   width: 20px;
   transform: translateY(-50%);
   text-align: center;
+  cursor: pointer;
 }
 
 .dialog-previous {
