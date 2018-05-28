@@ -1,4 +1,6 @@
 // Let's initiate all images with the 'gallery-image' class to open in the modal!
+// These don't have to be images either, they can be anything! we just need to add
+// the data attribute `data-dialogr-src` to the element.
 let galleryImages = document.querySelectorAll('.gallery-image');
 dialogr(galleryImages, {
   gallery: true,

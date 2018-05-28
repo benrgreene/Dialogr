@@ -110,6 +110,8 @@ if( typeof HTMLDialogElement == 'function' ) {
       padding = 40;
       if(dialog.clientHeight > 40) {
         dialogImage.style.maxHeight = (dialog.clientHeight - padding) + 'px';
+      } else {
+        dialogImage.style.maxHeight = (window.innerHeight - (2 * padding)) + 'px';
       }
     }
   }
