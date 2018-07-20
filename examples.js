@@ -19,3 +19,10 @@ dialogr(htmlDialogTrigger, {
   content: `<p>This is some HTML content!</p>
     <p>Warm fuzzy feelings</p>`,
 });
+
+let doubleClickDialogTrigger = document.querySelectorAll('.js-dblclick-dialog');
+dialogr(doubleClickDialogTrigger, {
+  openAction: 'dblclick',
+  content: `<p>This is opened by a double click!</p>
+    <p>So fancy.</p>`,
+});

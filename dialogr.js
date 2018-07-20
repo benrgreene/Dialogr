@@ -72,6 +72,11 @@ if( typeof HTMLDialogElement == 'function' ) {
       inGallery = true;
     }
 
+    var openAction = 'click';
+    if( undefined !== options.openAction ) {
+      openAction = options.openAction;
+    }
+
     elements.forEach(function(e) {
       if(inGallery) {
         e.dataset.dialogrIndex = maxSlides;
@@ -82,13 +87,13 @@ if( typeof HTMLDialogElement == 'function' ) {
       
       if("image" == type) {
         var el = e;
-        el.addEventListener('click', function(event) {
+        el.addEventListener(openAction, function(event) {
           dialog.showModal();
           displayImage(el);
         });
       }
       else if("html" == type) {
-        e.addEventListener('click', function(event) {
+        e.addEventListener(openAction, function(event) {
           dialog.showModal();
           displayHTMLContent(options.content);
         });
