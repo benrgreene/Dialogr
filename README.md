@@ -22,7 +22,7 @@ The type option can be either 'image' or 'html'. The default value is 'html'. Th
 Here's an example:
 
 ```
-let galleryImages = document.querySelectorAll('img.gallery-image');
+let galleryImages = document.querySelectorAll('.gallery-image');
 dialogr(galleryImages, {
   gallery: true,
   type: 'image',
@@ -31,8 +31,6 @@ dialogr(galleryImages, {
 
 This instantiates a lightbox, with gallery mode enabled, for all images with the class `.gallery-image`;
 
-NOTE: only images should be passed to dialogr when setting the type to 'image'. I know, obvious, but I feel the need to say it. **Also, with type of image, the images are the triggers.** 
-
 Here's an example of an HTML type lightbox:
 
 ```
@@ -40,5 +38,22 @@ let htmlDialogTrigger = document.querySelectorAll('.js-trigger-dialog');
 dialogr(htmlDialogTrigger, {
   content: `<p>This is some HTML content!</p>
     <p>Warm fuzzy feelings</p>`,
+});
+```
+
+Any element can be image modal triggers, they will need either a `src` attribute OR a data attribute `dialogr-src`. Here's an example of a button that opens an image modal (would work with the first example):
+
+```
+<button class="gallery-image" data-dialogr-src="https://www.nasa.gov/sites/default/files/thumbnails/image/discover_missions_banner.jpg">I open an image too!</button>
+```
+
+It's possible to also set the triggering event. The default is simply the click event, but any native event will work. Here's an example:
+
+```
+let doubleClickDialogTrigger = document.querySelectorAll('.js-dblclick-dialog');
+dialogr(doubleClickDialogTrigger, {
+  openAction: 'dblclick',
+  content: `<p>This is opened by a double click!</p>
+    <p>So fancy.</p>`,
 });
 ```
