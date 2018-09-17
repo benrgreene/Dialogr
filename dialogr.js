@@ -38,16 +38,31 @@ if( typeof HTMLDialogElement == 'function' ) {
   // Add the image to the dialog element
   function displayImage(element) {
     let currentGalleryIndex = '';
+    let imageCaption = false;
     let imageSrc = element.src;
     // Allow for image type triggers on non-image elements
-    if(element.dataset.dialogrSrc) {
+    if (element.dataset.dialogrSrc) {
       imageSrc = element.dataset.dialogrSrc;
     }
     // set gallery index IF it exists
-    if(element.dataset.dialogrIndex) {
+    if (element.dataset.dialogrIndex) {
       dialogContent.dataset.currentGalleryIndex = element.dataset.dialogrIndex;
     }
-    dialogContent.innerHTML = '<img src="' + imageSrc + '" ' + currentGalleryIndex + ' />';
+    // Check if there is a caption for the image
+    if (element.dataset.dialogrCaption) {
+      imageCaption = element.dataset.dialogrCaption;
+    } else if ('FIGURE' == element.parentElement.tagName) {
+      let allChildren = Array.from(element.parentElement.children);
+      imageCaption = allChildren.reduce((figCaption, currentElement) => {
+        return ('FIGCAPTION' == currentElement.tagName) ? currentElement.innerHTML : figCaption;
+      }, false);
+    }
+    // Set the dialog content
+    if (false !== imageCaption) {
+      dialogContent.innerHTML = `<figure><img src="${imageSrc}" ${currentGalleryIndex} /><figcaption>${imageCaption}</figcaption></figure>`;
+    } else {
+      dialogContent.innerHTML = `<img src="${imageSrc}" ${currentGalleryIndex} />`;
+    }
     setImageMaxDim();
   }
 
@@ -107,16 +122,18 @@ if( typeof HTMLDialogElement == 'function' ) {
   });
 
   function setImageMaxDim() {
-    var dialogImage = document.querySelector('.dialog-content img');
+    var dialogImage   = document.querySelector('.dialog-content img');
+    var dialogCaption = document.querySelector('.dialog-content figcaption');
+    let captionHeight = (dialogCaption) ? dialogCaption.clientHeight : 0;
     if(dialogImage) {
       dialogImage.style.maxHeight = '';
       // TODO: this should be dynamic
       var padding = dialog.style.paddingTop;
       padding = 40;
       if(dialog.clientHeight > 40) {
-        dialogImage.style.maxHeight = (dialog.clientHeight - padding) + 'px';
+        dialogImage.style.maxHeight = (dialog.clientHeight - padding - captionHeight) + 'px';
       } else {
-        dialogImage.style.maxHeight = (window.innerHeight - (2 * padding)) + 'px';
+        dialogImage.style.maxHeight = (window.innerHeight - (2 * padding) - captionHeight) + 'px';
       }
     }
   }

@@ -17,6 +17,10 @@ dialog::backdrop {
   background-color: rgba(10,10,10, 0.8);
 }
 
+dialog figure {
+  margin: 0;
+}
+
 .dialog-close {
   content: 'X';
   position: absolute;
